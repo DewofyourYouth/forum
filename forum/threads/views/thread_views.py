@@ -70,6 +70,7 @@ def get_thread_with_comments(request: Request, thread_id: int) -> Response:
         "id": thread_id,
         "title": thread.title,
         "content": thread.content,
+        "created_at": thread.created_at,
         "author_id": thread.created_by.id,
         "author": thread.created_by.username,
         "comments": comments,
