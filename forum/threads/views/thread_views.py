@@ -9,11 +9,9 @@ from rest_framework.response import Response
 from threads.serializers import ThreadSerializer
 from threads.serializers import UpdateSerializer
 from threads.models import *
-from drf_yasg.utils import swagger_auto_schema
 from threads.utils import get_thread
 
 
-@swagger_auto_schema(request_body=UpdateSerializer, method="POST")
 @authentication_classes([TokenAuthentication])
 @api_view(["POST"])
 def new(request: Request):
@@ -48,7 +46,6 @@ def delete_thread(request, thread_id: int) -> Response:
     return Response({"message": f"Thread: '{title}' was successfully deleted."})
 
 
-@swagger_auto_schema(request_body=UpdateSerializer, method="PUT")
 @api_view(["PUT"])
 def update_thread(request: Request, thread_id: int) -> Response:
     thread = get_thread(thread_id)

@@ -4,7 +4,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from threads.serializers import UpdateSerializer
 from threads.models import *
-from drf_yasg.utils import swagger_auto_schema
 from threads.utils import get_comment
 
 
@@ -20,7 +19,6 @@ def delete_comment(request: Request, comment_id: int) -> Response:
     return Response({"message": f"Comment '{title}' was successfully deleted."})
 
 
-@swagger_auto_schema(request_body=UpdateSerializer, method="PUT")
 @api_view(["PUT"])
 def update_comment(request: Request, comment_id: int) -> Response:
     comment = get_comment(comment_id)
