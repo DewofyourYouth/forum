@@ -34,6 +34,7 @@ def new(request: Request, thread_id: int) -> Response:
     return Response({"message": "invalid input"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+@authentication_classes([TokenAuthentication])
 @api_view(["DELETE"])
 def delete_comment(request: Request, comment_id: int) -> Response:
     comment = get_comment(comment_id)
@@ -46,6 +47,7 @@ def delete_comment(request: Request, comment_id: int) -> Response:
     return Response({"message": f"Comment '{title}' was successfully deleted."})
 
 
+@authentication_classes([TokenAuthentication])
 @api_view(["PUT"])
 def update_comment(request: Request, comment_id: int) -> Response:
     comment = get_comment(comment_id)
