@@ -1,9 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-
-from threads.views import views
-from threads.views import thread_views
 from threads.views import comment_views
+from threads.views import thread_views
+from threads.views import views
 
 router = DefaultRouter()
 router.register(r"threads", views.ThreadViewSet, "thread")

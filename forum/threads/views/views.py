@@ -1,10 +1,7 @@
+from django.http import HttpResponse
 from rest_framework import viewsets
 from threads import serializers
 from threads.models import *
-
-
-from django.http import HttpResponse
-
 from threads.serializers import (
     ForumUserSerializer,
     ThreadSerializer,

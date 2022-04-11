@@ -1,11 +1,11 @@
 from urllib.request import Request
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, authentication_classes
-from rest_framework.authentication import TokenAuthentication
 
-from threads.serializers import UpdateSerializer
+from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.response import Response
 from threads.models import *
+from threads.serializers import UpdateSerializer
 from threads.utils import get_comment, get_thread
 
 
