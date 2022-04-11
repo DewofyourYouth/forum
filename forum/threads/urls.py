@@ -28,7 +28,11 @@ urlpatterns = [
         thread_views.get_thread_with_comments,
         name="full-thread",
     ),
-    path("new-thread", thread_views.new, name="new-thread"),
+    path(
+        "new-thread",
+        thread_views.new,
+        name="new-thread",
+    ),
     path(
         "delete-comment/<int:comment_id>",
         comment_views.delete_comment,
@@ -39,13 +43,9 @@ urlpatterns = [
         comment_views.update_comment,
         name="update-comment",
     ),
-    path("new-comment/<int:thread_id>", comment_views.new, name="new-comment"),
+    path(
+        "new-comment/<int:thread_id>",
+        comment_views.new,
+        name="new-comment",
+    ),
 ]
-
-
-""" 
-1) permissions for deleting based on specifications in emails
-    - threads
-    - comments
-2) front end
-"""
