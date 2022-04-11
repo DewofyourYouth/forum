@@ -15,8 +15,6 @@ from threads.utils import get_thread
 @authentication_classes([TokenAuthentication])
 @api_view(["POST"])
 def new(request: Request):
-    print(request.user)
-    print(request.user.is_authenticated)
     if not request.user:
         return Response(
             {"message": "no user available"}, status=status.HTTP_401_UNAUTHORIZED

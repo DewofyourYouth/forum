@@ -39,6 +39,7 @@ urlpatterns = [
         comment_views.update_comment,
         name="update-comment",
     ),
+    path("new-comment/<int:thread_id>", comment_views.new, name="new-comment"),
 ]
 
 

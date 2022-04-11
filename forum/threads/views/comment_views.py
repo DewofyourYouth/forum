@@ -1,10 +1,37 @@
 from urllib.request import Request
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.authentication import TokenAuthentication
+
 from threads.serializers import UpdateSerializer
 from threads.models import *
-from threads.utils import get_comment
+from threads.utils import get_comment, get_thread
+
+
+@authentication_classes([TokenAuthentication])
+@api_view(["POST"])
+def new(request: Request, thread_id: int) -> Response:
+    if not request.user:
+        return Response(
+            {"message": "no user available"}, status=status.HTTP_401_UNAUTHORIZED
+        )
+    thread = get_thread(thread_id)
+    if not thread:
+        return Response(
+            {"message": f"there is no thread with an id of {thread_id}"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+    serializer = UpdateSerializer(data=request.data)
+    if serializer.is_valid():
+        Comment.objects.create(
+            title=serializer.data.get("title"),
+            content=serializer.data.get("content"),
+            user=request.user,
+            thread=thread,
+        )
+        return Response({"message": "comment successfully added."})
+    return Response({"message": "invalid input"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["DELETE"])
