@@ -64,7 +64,7 @@ def update_thread(request: Request, thread_id: int) -> Response:
 def get_thread_with_comments(request: Request, thread_id: int) -> Response:
     thread = get_thread(thread_id)
     comments = thread.comment_set.values(
-        "id", "title", "content", "user_id", "user__username"
+        "id", "title", "content", "user_id", "user__username", "created_at"
     )
     result = {
         "id": thread_id,
