@@ -8,7 +8,7 @@ There is a sqlite3.db file, in case you would like some dummy data.
 
 The front end client is in [this repo](https://github.com/DewofyourYouth/forum-client)
 
-## Endpoints:
+## Endpoints (not yet used in frontend):
 
 * http://localhost:8000/threads/delete-thread/<int:thread_id>
 * http://localhost:8000/threads/update-thread/<int:thread_id>
