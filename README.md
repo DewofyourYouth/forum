@@ -10,7 +10,6 @@ The front end client is in [this repo](https://github.com/DewofyourYouth/forum-c
 
 ## Endpoints (not yet used in frontend):
 
-* http://localhost:8000/threads/delete-thread/<int:thread_id>
 * http://localhost:8000/threads/update-thread/<int:thread_id>
 * http://localhost:8000/threads/delete-comment/<int:comment_id>
 * http://localhost:8000/threads/update-comment/<int:comment_id>
