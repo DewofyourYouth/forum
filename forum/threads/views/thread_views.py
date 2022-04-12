@@ -59,7 +59,8 @@ def update_thread(request: Request, thread_id: int) -> Response:
         if serializer.data.get("content"):
             thread.content = serializer.data["content"]
         thread.save()
-    return Response({"message": f"Thread '{thread.title}' successfully updated."})
+        return Response({"message": f"Thread '{thread.title}' successfully updated."})
+    return Response({"message": "invalid input"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @authentication_classes([TokenAuthentication])

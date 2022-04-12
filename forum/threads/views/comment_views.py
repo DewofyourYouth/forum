@@ -62,4 +62,7 @@ def update_comment(request: Request, comment_id: int) -> Response:
         if serializer.data.get("content"):
             comment.content = serializer.data["content"]
         comment.save()
-    return Response({"message": f"Comment: '{comment.title}' updated successfully."})
+        return Response(
+            {"message": f"Comment: '{comment.title}' updated successfully."}
+        )
+    return Response({"message": "invalid input"}, status=status.HTTP_400_BAD_REQUEST)
