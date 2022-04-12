@@ -29,6 +29,7 @@ def new(request: Request):
     return Response({"message": "invalid input"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+@authentication_classes([TokenAuthentication])
 @api_view(["DELETE"])
 def delete_thread(request, thread_id: int) -> Response:
     thread = get_thread(thread_id)
@@ -42,6 +43,7 @@ def delete_thread(request, thread_id: int) -> Response:
     return Response({"message": f"Thread: '{title}' was successfully deleted."})
 
 
+@authentication_classes([TokenAuthentication])
 @api_view(["PUT"])
 def update_thread(request: Request, thread_id: int) -> Response:
     thread = get_thread(thread_id)
@@ -60,6 +62,7 @@ def update_thread(request: Request, thread_id: int) -> Response:
     return Response({"message": f"Thread '{thread.title}' successfully updated."})
 
 
+@authentication_classes([TokenAuthentication])
 @api_view(["GET"])
 def get_thread_with_comments(request: Request, thread_id: int) -> Response:
     thread = get_thread(thread_id)
