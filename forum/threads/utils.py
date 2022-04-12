@@ -22,6 +22,10 @@ def make_msg_response(
     return Response({"message": msg}, status=status)
 
 
+def test_user_permission(current_user, user_object):
+    return user_object == current_user or current_user.is_superuser
+
+
 get_thread = partial(get_model_by_id, Thread)
 get_comment = partial(get_model_by_id, Comment)
 make_unauthorized_response = partial(make_msg_response, status.HTTP_401_UNAUTHORIZED)

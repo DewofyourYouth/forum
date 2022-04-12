@@ -3,6 +3,7 @@ from urllib.request import Request
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
+from threads.utils import test_user_permission
 from threads.models import *
 from threads.serializers import UpdateSerializer
 from threads.utils import (
@@ -46,7 +47,7 @@ def delete_comment(request: Request, comment_id: int) -> Response:
         return make_not_found_response(
             f"Couldn't find a comment with the id of {comment_id}"
         )
-    if comment.user != request.user and not request.user.is_superuser:
+    if not test_user_permission(request.user, comment.user):
         return make_forbidden_response("Can't delete.")
     title = comment.title
     comment.delete()
@@ -59,7 +60,7 @@ def update_comment(request: Request, comment_id: int) -> Response:
     comment = get_comment(comment_id)
     if not comment:
         return make_not_found_response("Comment not found.")
-    if comment.user != request.user and not request.user.is_superuser:
+    if not test_user_permission(request.user, comment.user):
         return make_forbidden_response("You can't update this comment.")
     serializer = UpdateSerializer(data=request.data)
     if not serializer.is_valid():

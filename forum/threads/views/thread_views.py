@@ -3,6 +3,7 @@ from urllib.request import Request
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
+from threads.utils import test_user_permission
 from threads.models import *
 from threads.serializers import UpdateSerializer
 from threads.utils import (
@@ -35,9 +36,10 @@ def new(request: Request) -> Response:
 @api_view(["DELETE"])
 def delete_thread(request, thread_id: int) -> Response:
     thread = get_thread(thread_id)
+
     if not thread:
         return make_not_found_response(f"Couldn't find a thread with id {thread_id}")
-    if thread.created_by != request.user and not request.user.is_superuser:
+    if not test_user_permission(request.user, thread.created_by):
         return make_forbidden_response("You can't delete this thread.")
 
     title = thread.title
@@ -51,7 +53,7 @@ def update_thread(request: Request, thread_id: int) -> Response:
     thread = get_thread(thread_id)
     if not thread:
         return make_not_found_response(f"Couldn't find a thread with id of {thread_id}")
-    if thread.created_by != request.user and not request.user.is_superuser:
+    if not test_user_permission(request.user, thread.created_by):
         return make_forbidden_response(f"Can't delete thread with id {thread_id}")
 
     serializer = UpdateSerializer(data=request.data)
@@ -70,6 +72,8 @@ def update_thread(request: Request, thread_id: int) -> Response:
 @api_view(["GET"])
 def get_thread_with_comments(request: Request, thread_id: int) -> Response:
     thread = get_thread(thread_id)
+    if not thread:
+        return make_not_found_response("Thread not found.")
     comments = thread.comment_set.values(
         "id", "title", "content", "user_id", "user__username", "created_at"
     )
