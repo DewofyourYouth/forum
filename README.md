@@ -17,5 +17,6 @@ The front end client is in [this repo](https://github.com/DewofyourYouth/forum-c
 
 ## TODO
 
-* Update and delete on the front end
-* Refresh the UI when a Thread or Comment is added (probably by using the store middleware for the API - or using something like react query)
+* Update and delete on the front end comment
+* Update for threads
+* Refresh UI for adding comments
